@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Школа №1</title>
+  <style>
+    body { margin: 0; background: #0f1420; color: #e8ecf5; font-family: Arial, sans-serif; }
+    header { display: flex; align-items: center; justify-content: space-between;
+             padding: 16px 32px; border-bottom: 1px solid #222a3d; }
+    header, .layout { position: relative; z-index: 1; }
+    .logo { font-size: 24px; font-weight: bold; }
+    nav a { color: #e8ecf5; text-decoration: none; margin: 0 14px; }
+    nav a:hover { color: #6ea8ff; }
+    .login { border: 1px solid #3b5bdb; background: transparent; color: #e8ecf5;
+             padding: 8px 18px; border-radius: 8px; cursor: pointer; }
+
+    .layout { display: grid; grid-template-columns: 260px 1fr 300px; gap: 24px;
+              margin: 24px 32px; align-items: start; }
+    .card { background: #151b2b; border-radius: 16px; padding: 20px; }
+    .card + .card { margin-top: 24px; }
+
+    .stat { display: flex; align-items: center; gap: 16px; padding: 10px 0; }
+    .stat b { font-size: 34px; display: block; }
+    .stat span { color: #8d99b5; }
+    .icon { width: 44px; height: 44px; fill: #e8ecf5; flex-shrink: 0; }
+    .card h3 { margin: 0 0 12px; font-size: 22px; }
+    .card label { display: block; margin: 10px 0; color: #c9d2e8; }
+    .btn { display: inline-block; border: 1px solid #3b5bdb; color: #e8ecf5; background: transparent;
+           text-decoration: none; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-size: 15px; }
+    .btn:hover { background: #3b5bdb; }
+    #poll-result { margin-top: 10px; color: #3ddc84; }
+
+    .hero { position: relative; overflow: hidden; padding: 64px 48px; border-radius: 16px;
+            background: linear-gradient(rgba(15,20,32,0.75), rgba(15,20,32,0.75)),
+                        url("school.png") center/cover #1b2a52; margin-bottom: 24px; }
+    .hero h1 { font-size: 56px; margin: 0 0 28px; }
+
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .section-head h2 { font-size: 30px; margin: 0; }
+    .section-head a { color: #6ea8ff; text-decoration: none; }
+    .list { margin-top: 12px; max-height: 360px; overflow-y: auto; }
+    .row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #222a3d; }
+    .row:last-child { border-bottom: none; }
+    .avatar { position: relative; overflow: hidden; width: 44px; height: 44px; border-radius: 50%;
+              background: #2a3a6b; display: flex; align-items: center; justify-content: center;
+              font-weight: bold; margin-right: 16px; flex-shrink: 0; }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .info { flex: 1; }
+    .name { font-size: 18px; }
+    .class { font-size: 14px; color: #8d99b5; }
+    .status { display: flex; align-items: center; gap: 8px; }
+    .status select { background: #1d2540; color: #e8ecf5; border: 1px solid #2c3658;
+                     border-radius: 8px; padding: 6px 8px; font-size: 14px; cursor: pointer; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .green { background: #3ddc84; }
+    .blue { background: #4da3ff; }
+    .red { background: #ff5c5c; }
+    .yellow { background: #f5c542; }
+
+    .quiz p { color: #b8c2dc; margin: 0 0 16px; }
+
+    /* ===== ЁЛКИ И СНЕГ ===== */
+    .tree { position: fixed; bottom: 0; z-index: 0; pointer-events: none; }
+    .tree svg { width: 100%; height: 100%; transform-origin: 50% 100%;
+                animation: treesway 10s ease-in-out infinite alternate; }
+    @keyframes treesway { from { transform: rotate(-0.5deg); } to { transform: rotate(0.5deg); } }
+
+    .flake { position: fixed; z-index: 0; pointer-events: none; background: #fff; border-radius: 50%;
+             opacity: 0; box-shadow: 0 0 4px rgba(255,255,255,0.8);
+             animation: snowfall linear forwards; }
+    @keyframes snowfall {
+      0%   { transform: translate(0, 0); opacity: 0; }
+      10%  { opacity: 0.9; }
+      33%  { transform: translate(calc(var(--drift) * 0.3 + 18px), calc(var(--fall) * 0.33)); }
+      66%  { transform: translate(calc(var(--drift) * 0.7 - 18px), calc(var(--fall) * 0.66)); }
+      95%  { opacity: 0.9; }
+      100% { transform: translate(var(--drift), var(--fall)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Свои</div>
+    <nav>
+      <a href="#">Главная</a>
+      <a href="#">Ученики</a>
+      <a href="#">Чат</a>
+      <a href="#">Новости</a>
+    </nav>
+    <button class="login">Войти</button>
+  </header>
+
+  <div class="layout">
+
+    <div>
+      <div class="card">
+        <div class="stat">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 21c0-4.5 4-7 9-7s9 2.5 9 7z"/></svg>
+          <div><b id="count-students">0</b><span>Учеников</span></div>
+        </div>
+        <div class="stat">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+          <div><b id="count-teachers">0</b><span>Учителей</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Краткий опрос</h3>
+        <p>Как вам наш сайт?</p>
+        <label><input type="radio" name="poll"> Отлично</label>
+        <label><input type="radio" name="poll"> Нормально</label>
+        <label><input type="radio" name="poll"> Плохо</label>
+        <button class="btn" id="vote">Проголосовать</button>
+        <div id="poll-result"></div>
+      </div>
+    </div>
+
+    <div>
+      <section class="hero">
+        <h1>Школа №1</h1>
+        <a class="btn" href="#">Узнать больше →</a>
+      </section>
+
+      <div class="card">
+        <div class="section-head">
+          <h2>Ученики</h2>
+          <a href="#">Все свои →</a>
+        </div>
+        <div class="list" id="list"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card quiz">
+        <h3>Квиз: какой ты ученик?</h3>
+        <p>Узнай, какой ты ученик нашего класса!</p>
+        <a class="btn" href="#">Пройти тест →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script src="trees.js"></script>
+</body>
+</html>
