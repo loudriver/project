@@ -123,6 +123,7 @@ specs.forEach(s => {
 
 // Снежинки, которые слетают с веток
 function snowflake(s) {
+  if (window.innerWidth < 900) return;  // на телефоне снег не создаём
   const left0 = s.side === "left" ? s.offset : window.innerWidth - s.w - s.offset;
   const x = left0 + s.w * (0.15 + Math.random() * 0.7);
   const y = window.innerHeight - s.h + s.h * (0.1 + Math.random() * 0.75);

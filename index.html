@@ -77,6 +77,20 @@
       95%  { opacity: 0.9; }
       100% { transform: translate(var(--drift), var(--fall)); opacity: 0; }
     }
+
+    /* ===== ТЕЛЕФОНЫ И ПЛАНШЕТЫ ===== */
+    @media (max-width: 900px) {
+      header { flex-direction: column; gap: 12px; padding: 12px 16px; }
+      nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0; }
+      .layout { grid-template-columns: 1fr; margin: 16px; gap: 16px; }
+      .layout > div:nth-child(2) { order: -1; }  /* баннер и список учеников сверху */
+      .card + .card { margin-top: 16px; }
+      .hero { padding: 36px 20px; }
+      .hero h1 { font-size: 36px; margin-bottom: 20px; }
+      .section-head h2 { font-size: 24px; }
+      .name { font-size: 16px; }
+      .tree, .flake { display: none; }  /* ёлки и снег только на компьютере */
+    }
   </style>
 </head>
 <body>
