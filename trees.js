@@ -1,4 +1,4 @@
-// ===== ЁЛКИ И СНЕГ =====
+// ===== ЁЛКА, СНЕГОВИК И ЗИМНЯЯ СЦЕНКА =====
 function makeRandom(seed) {
   return function () {
     seed |= 0; seed = seed + 0x6D2B79F5 | 0;
@@ -101,32 +101,243 @@ function fir(o) {
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
 }
 
-// Две разные ёлки: справа высокая, слева пониже и с синеватой хвоей
-const specs = [
-  { side: "right", offset: 8, w: 360, h: 560, seed: 11, tiers: 10, maxHalf: 150,
-    tierMin: 62, tierMax: 128, trunk: 14,
-    green: ["#3f8a5f", "#1f5a3e", "#0f3324"], edge: "#0b2418", needle: ["#5fae7f", "#0e2c1f"] },
-  { side: "left", offset: 8, w: 320, h: 470, seed: 29, tiers: 8, maxHalf: 140,
-    tierMin: 56, tierMax: 118, trunk: 13,
-    green: ["#4a8f78", "#25615a", "#123a3a"], edge: "#0a2326", needle: ["#6cc0aa", "#0c2b2b"] }
-];
+// ===== СНЕГОВИК (рисуется в своих координатах 240 x 330) =====
+function snowmanArt() {
+  const line = "#b6c6e2";
+  const body = `fill="url(#snowmanG)" stroke="${line}" stroke-width="1"`;
+  return `
+    <ellipse cx="120" cy="320" rx="112" ry="11" fill="#e9f0fb"/>
+    <g stroke="#5b3a24" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M78 168 L22 132"/><path d="M44 146 L34 124"/><path d="M36 141 L16 146"/>
+      <path d="M162 168 L218 134"/><path d="M196 148 L206 168"/><path d="M204 143 L214 122"/>
+    </g>
+    <circle cx="120" cy="255" r="68" ${body}/>
+    <circle cx="120" cy="165" r="50" ${body}/>
+    <circle cx="120" cy="93" r="36" ${body}/>
+    <rect x="82" y="52" width="76" height="8" rx="3" fill="#1a1f2e"/>
+    <rect x="94" y="16" width="52" height="38" rx="3" fill="#232a3f"/>
+    <rect x="94" y="42" width="52" height="9" fill="#d94f4f"/>
+    <ellipse cx="120" cy="17" rx="26" ry="4" fill="#f3f7ff"/>
+    <circle cx="108" cy="84" r="4.2" fill="#1a1f2e"/>
+    <circle cx="132" cy="84" r="4.2" fill="#1a1f2e"/>
+    <circle cx="100" cy="98" r="5" fill="#ff9aa8" opacity="0.35"/>
+    <circle cx="140" cy="98" r="5" fill="#ff9aa8" opacity="0.35"/>
+    <polygon points="120,92 158,99 120,104" fill="#f08a24"/>
+    <polygon points="120,98 158,99 120,104" fill="#c96a14"/>
+    <g fill="#1a1f2e">
+      <circle cx="103" cy="108" r="2.2"/><circle cx="109" cy="114" r="2.2"/><circle cx="120" cy="117" r="2.2"/>
+      <circle cx="131" cy="114" r="2.2"/><circle cx="137" cy="108" r="2.2"/>
+    </g>
+    <rect x="86" y="122" width="68" height="15" rx="7.5" fill="#d94f4f"/>
+    <g fill="#b83a3a">
+      <rect x="100" y="122" width="7" height="15"/><rect x="122" y="122" width="7" height="15"/>
+      <rect x="142" y="122" width="7" height="15"/>
+    </g>
+    <rect x="136" y="130" width="16" height="48" rx="4" fill="#d94f4f"/>
+    <rect x="136" y="146" width="16" height="6" fill="#b83a3a"/>
+    <rect x="136" y="162" width="16" height="6" fill="#b83a3a"/>
+    <g fill="#1a1f2e">
+      <circle cx="120" cy="152" r="4.5"/><circle cx="120" cy="174" r="4.5"/><circle cx="120" cy="196" r="4.5"/>
+    </g>`;
+}
 
-specs.forEach(s => {
+// ===== ЗИМНИЕ ПРИКОЛЫ (каждый рисуется от точки 0,0 вверх) =====
+function miniFir() {
+  const tiers = [[-58, -14, 34, "#1b4f37"], [-76, -40, 27, "#206043"], [-96, -62, 19, "#277050"]];
+  let s = `<rect x="-4" y="-16" width="8" height="16" fill="#5a3a26"/>`;
+  tiers.forEach(([top, bot, hw, c]) => {
+    s += `<polygon points="0,${top} ${-hw},${bot} ${hw},${bot}" fill="${c}"/>`;
+    const ch = (bot - top) * 0.42, cw = hw * 0.42;
+    s += `<path d="M0 ${top} L${-cw} ${top + ch} Q${-cw / 2} ${top + ch - 3} 0 ${top + ch + 2} Q${cw / 2} ${top + ch - 3} ${cw} ${top + ch} Z" fill="#f3f7ff"/>`;
+  });
+  return s;
+}
+
+function gifts() {
+  return `
+    <rect x="-28" y="-26" width="30" height="26" fill="#d94f4f"/>
+    <rect x="-16" y="-26" width="6" height="26" fill="#f5c542"/>
+    <rect x="-28" y="-16" width="30" height="5" fill="#f5c542"/>
+    <ellipse cx="-17" cy="-29" rx="5" ry="3.5" fill="#f5c542"/><ellipse cx="-9" cy="-29" rx="5" ry="3.5" fill="#f5c542"/>
+    <rect x="4" y="-20" width="24" height="20" fill="#4d8be0"/>
+    <rect x="13" y="-20" width="5" height="20" fill="#e8ecf5"/>
+    <rect x="8" y="-34" width="16" height="14" fill="#3dbf84"/>
+    <rect x="14" y="-34" width="4" height="14" fill="#f5c542"/>
+    <ellipse cx="16" cy="-34" rx="9" ry="2.5" fill="#f3f7ff"/>`;
+}
+
+function lamp() {
+  return `
+    <circle cx="0" cy="-148" r="75" fill="url(#lampGlow)"/>
+    <ellipse cx="0" cy="-2" rx="52" ry="6" fill="#ffd27a" opacity="0.18"/>
+    <rect x="-3" y="-142" width="6" height="142" fill="#2a3350"/>
+    <rect x="-9" y="-6" width="18" height="6" rx="2" fill="#2a3350"/>
+    <rect x="-9" y="-160" width="18" height="20" rx="3" fill="#ffd27a"/>
+    <polygon points="-13,-160 0,-173 13,-160" fill="#2a3350"/>
+    <path d="M-11 -163 L0 -174 L11 -163 Q0 -166 -11 -163 Z" fill="#f3f7ff"/>`;
+}
+
+function igloo() {
+  return `
+    <path d="M-46 0 A46 40 0 0 1 46 0 Z" fill="#e9f0fb" stroke="#b6c6e2" stroke-width="1.5"/>
+    <path d="M-40 -14 Q0 -22 40 -14 M-30 -28 Q0 -34 30 -28" fill="none" stroke="#b6c6e2" stroke-width="1.2"/>
+    <path d="M-12 0 L-12 -14 A12 12 0 0 1 12 -14 L12 0 Z" fill="#1b2a52"/>`;
+}
+
+function sled() {
+  return `
+    <path d="M-40 -16 Q-40 -5 -30 -5 L32 -5" fill="none" stroke="#6a4530" stroke-width="3" stroke-linecap="round"/>
+    <rect x="-22" y="-13" width="4" height="8" fill="#6a4530"/>
+    <rect x="18" y="-13" width="4" height="8" fill="#6a4530"/>
+    <rect x="-28" y="-20" width="56" height="7" rx="2" fill="#c0552f"/>
+    <ellipse cx="0" cy="-20" rx="20" ry="2.5" fill="#f3f7ff"/>
+    <path d="M-40 -16 Q-58 -14 -66 -4" fill="none" stroke="#e8ecf5" stroke-width="1.5"/>`;
+}
+
+function canes() {
+  const d = "M0 0 L0 -42 Q0 -56 -12 -56 Q-23 -56 -23 -45";
+  const cane = `<path d="${d}" fill="none" stroke="#f3f7ff" stroke-width="7" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#d94f4f" stroke-width="7" stroke-dasharray="5 6"/>`;
+  return `<g transform="translate(-14 0) rotate(-6)">${cane}</g><g transform="translate(16 0) rotate(7)">${cane}</g>`;
+}
+
+// ===== ВСЯ СЦЕНКА ВНИЗУ: снеговик слева, приколы посередине =====
+function scene(W, H, snowCx, treeLeft) {
+  const rand = makeRandom(7);
+  const sc = (H - 6) / 330;          // размер снеговика
+  const snowBase = H - 8;
+  const ground = H - 14;
+  const xL = snowCx + 120 * sc + 40; // где начинаются приколы
+  const rangeW = treeLeft - 10 - xL; // сколько места до ёлки
+
+  let out = `
+    <defs>
+      <radialGradient id="snowmanG" cx="0.38" cy="0.32" r="0.85">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="0.6" stop-color="#e4ecf9"/>
+        <stop offset="1" stop-color="#a7b9d6"/>
+      </radialGradient>
+      <radialGradient id="lampGlow">
+        <stop offset="0" stop-color="#ffd27a" stop-opacity="0.55"/>
+        <stop offset="1" stop-color="#ffd27a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>`;
+
+  // звёзды
+  for (let i = 0; i < 16; i++) {
+    out += `<circle cx="${n1(rand() * W)}" cy="${n1(6 + rand() * H * 0.45)}" r="${n1(0.8 + rand() * 1.4)}" fill="#fff" opacity="${n1(0.3 + rand() * 0.5)}"/>`;
+  }
+
+  // месяц
+  if (rangeW > 300) {
+    const mx = xL + rangeW * 0.62, my = Math.max(34, H * 0.2);
+    out += `<g transform="translate(${n1(mx)} ${n1(my)})"><circle r="34" fill="#f3eac2" opacity="0.07"/><path d="M0 -18 A18 18 0 0 0 0 18 A24 24 0 0 1 0 -18 Z" fill="#f3eac2"/></g>`;
+  }
+
+  // дальний сугроб
+  out += `<path d="M0 ${H} L0 ${n1(H - 34)} C${n1(W * 0.12)} ${n1(H - 58)} ${n1(W * 0.28)} ${n1(H - 22)} ${n1(W * 0.5)} ${n1(H - 38)} S${n1(W * 0.86)} ${n1(H - 58)} ${W} ${n1(H - 30)} L${W} ${H} Z" fill="#9db0d0" opacity="0.5"/>`;
+
+  // снеговик
+  out += `<g transform="translate(${n1(snowCx - 120 * sc)} ${n1(snowBase - 330 * sc)}) scale(${sc.toFixed(3)})">${snowmanArt()}</g>`;
+
+  // зимние приколы между снеговиком и ёлкой
+  if (rangeW > 260) {
+    const u = Math.min(1.25, Math.max(0.6, H / 260));
+    const items = [
+      [0.02, miniFir, 0.85], [0.13, gifts, 1], [0.30, lamp, 1], [0.47, igloo, 1.05],
+      [0.64, sled, 1], [0.77, canes, 1], [0.92, miniFir, 0.7]
+    ];
+    let lastX = -1e9;
+    items.forEach(([f, draw, k]) => {
+      const x = xL + f * rangeW;
+      if (x - lastX < 95 * u) return;   // если тесно, пропускаем
+      lastX = x;
+      out += `<g transform="translate(${n1(x)} ${n1(ground)}) scale(${(u * k).toFixed(2)})">${draw()}</g>`;
+    });
+  }
+
+  // ближний сугроб (закрывает основания предметов)
+  out += `<path d="M0 ${H} L0 ${n1(H - 14)} Q${n1(W * 0.25)} ${n1(H - 24)} ${n1(W * 0.5)} ${n1(H - 12)} T${W} ${n1(H - 16)} L${W} ${H} Z" fill="#e9f0fb"/>`;
+
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
+}
+
+// ===== РАЗМЕР И МЕСТО ЁЛКИ =====
+const GUTTER_LEFT = 304;   // где по центру стоит снеговик (от левого края экрана)
+const GUTTER_RIGHT = 344;  // где по центру стоит ёлка (от правого края экрана)
+const SHIFT = 0;           // доп. сдвиг в пикселях
+
+const lookRight = { green: ["#3f8a5f", "#1f5a3e", "#0f3324"], edge: "#0b2418", needle: ["#5fae7f", "#0e2c1f"] };
+
+// widthK — ширина ёлки относительно высоты (больше число — пышнее ёлка)
+function makeSpec(side, gutter, widthK, seed, look) {
+  const header = document.querySelector("header");
+  const headerH = header ? header.offsetHeight : 100;
+  // ёлка заканчивается чуть ниже шапки, чтобы не заезжать на меню
+  const h = Math.max(window.innerHeight - headerH - 16, 400);
+  const w = Math.round(h * widthK);
+  return Object.assign({
+    side: side,
+    offset: Math.round(gutter - w / 2 + SHIFT),
+    w: w, h: h, seed: seed,
+    tiers: Math.max(8, Math.round(h / 65)),
+    maxHalf: Math.round(w * 0.43),
+    tierMin: Math.round(h * 0.09),
+    tierMax: Math.round(h * 0.19),
+    trunk: Math.round(w * 0.035)
+  }, look);
+}
+
+let specs = [];
+
+function buildTrees() {
+  document.querySelectorAll(".tree, .scene").forEach(t => t.remove());
+  specs = [];
+  document.body.style.paddingBottom = "0px";
+  if (window.innerWidth < 900) return;           // на телефоне ничего не рисуем
+
+  const treeSpec = makeSpec("right", GUTTER_RIGHT, 0.58, 11, lookRight);
+  specs = [treeSpec];
+
+  // высота сценки зависит от высоты окна, а не от свободного места
+  const H = Math.round(Math.min(380, Math.max(220, window.innerHeight * 0.32)));
+  const W = document.documentElement.clientWidth;
+  const treeLeft = W - GUTTER_RIGHT - treeSpec.w * 0.45;
+
+  // запас внизу страницы, чтобы в конце прокрутки сценка была видна целиком
+  document.body.style.paddingBottom = H + "px";
+
+  const sceneDiv = document.createElement("div");
+  sceneDiv.className = "scene";
+  sceneDiv.style.height = H + "px";
+  sceneDiv.innerHTML = scene(W, H, GUTTER_LEFT + SHIFT, treeLeft);
+  document.body.appendChild(sceneDiv);
+
   const div = document.createElement("div");
   div.className = "tree";
-  div.style.width = s.w + "px";
-  div.style.height = s.h + "px";
-  div.style[s.side] = s.offset + "px";
-  div.innerHTML = fir(s);
+  div.style.width = treeSpec.w + "px";
+  div.style.height = treeSpec.h + "px";
+  div.style[treeSpec.side] = treeSpec.offset + "px";
+  div.innerHTML = fir(treeSpec);
   document.body.appendChild(div);
+}
+
+buildTrees();
+window.addEventListener("load", buildTrees);   // пересобрать, когда всё загрузилось
+
+// при изменении размера окна пересобираем под новый размер
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(buildTrees, 300);
 });
 
 // Снежинки, которые слетают с веток
 function snowflake(s) {
   if (window.innerWidth < 900) return;  // на телефоне снег не создаём
+  const vh = Math.min(s.h, window.innerHeight);  // видимая часть ёлки
   const left0 = s.side === "left" ? s.offset : window.innerWidth - s.w - s.offset;
   const x = left0 + s.w * (0.15 + Math.random() * 0.7);
-  const y = window.innerHeight - s.h + s.h * (0.1 + Math.random() * 0.75);
+  const y = window.innerHeight - vh + vh * (0.1 + Math.random() * 0.75);
   const size = 3 + Math.random() * 4;
   const f = document.createElement("div");
   f.className = "flake";

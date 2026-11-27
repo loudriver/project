@@ -132,6 +132,8 @@ nav a:hover { color: #6ea8ff; }
 .links a:hover { color: #6ea8ff; }
 
 /* ===== ЁЛКИ И СНЕГ ===== */
+.scene { position: fixed; left: 0; bottom: 0; width: 100%; z-index: 0; pointer-events: none; }
+.scene svg { display: block; width: 100%; height: 100%; }
 .tree { position: fixed; bottom: 0; z-index: 0; pointer-events: none; }
 .tree svg { width: 100%; height: 100%; transform-origin: 50% 100%;
             animation: treesway 10s ease-in-out infinite alternate; }
@@ -166,5 +168,24 @@ nav a:hover { color: #6ea8ff; }
   .name { font-size: 16px; }
   .random-photo { aspect-ratio: 16 / 9; }
   .links a { padding: 14px 0; }
-  .tree, .flake { display: none; }  /* ёлки и снег только на компьютере */
+  .tree, .flake, .scene { display: none; }  /* ёлки, снег и сценка только на компьютере */
+}
+
+/* ===== НОВОСТИ ===== */
+.news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.news-item { display: flex; gap: 16px; padding: 12px; color: inherit; text-decoration: none;
+             background: #0f1420; border: 1px solid #222a3d; border-radius: 12px; }
+.news-item:hover { border-color: #3b5bdb; }
+.news-img { width: 150px; height: 105px; flex-shrink: 0; border-radius: 10px; overflow: hidden;
+            background: linear-gradient(135deg, #1d2c5c, #2a3a6b); }
+.news-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.news-body { min-width: 0; }
+.news-title { font-size: 17px; font-weight: bold; margin-bottom: 4px; }
+.news-date { font-size: 13px; color: #8d99b5; margin-bottom: 6px; }
+.news-text { font-size: 14px; color: #b8c2dc; line-height: 1.4;
+             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+@media (max-width: 900px) {
+  .news-grid { grid-template-columns: 1fr; }
+  .news-img { width: 110px; height: 85px; }
 }
