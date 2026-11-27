@@ -111,6 +111,7 @@ nav a.active { border-bottom-color: #6ea8ff; }
 .blue { background: #4da3ff; }
 .red { background: #ff5c5c; }
 .yellow { background: #f5c542; }
+.gray { background: #8d99b5; }
 .status-text { font-size: 14px; color: #e8ecf5; }
 
 /* ===== СЛУЧАЙНЫЙ УЧЕНИК ===== */
@@ -198,6 +199,50 @@ nav a.active { border-bottom-color: #6ea8ff; }
 @media (min-width: 1900px) {
   .news-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ===== СТРАНИЦА «ВСЕ СВОИ» ===== */
+.page-head h1 { font-size: 44px; margin: 0 0 6px; }
+.page-head p { margin: 0 0 20px; color: #b8c2dc; font-size: 18px; }
+
+.big-search { display: flex; align-items: center; gap: 12px; background: #151b2b;
+              border: 1px solid #2c3658; border-radius: 14px; padding: 0 18px; }
+.big-search:focus-within { border-color: #3b5bdb; }
+.big-search svg { width: 22px; height: 22px; fill: none; stroke: #8d99b5; stroke-width: 2;
+                  stroke-linecap: round; flex-shrink: 0; }
+.big-search input { flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+                    color: #e8ecf5; font-size: 16px; padding: 16px 0; }
+
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0 20px; }
+.filters select { background: #151b2b; color: #e8ecf5; border: 1px solid #2c3658; border-radius: 999px;
+                  padding: 10px 16px; font-size: 14px; cursor: pointer; outline: none; }
+.filters select:hover, .filters select:focus { border-color: #3b5bdb; }
+.found { margin-left: auto; color: #8d99b5; font-size: 14px; }
+
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.pgrid .search-empty { grid-column: 1 / -1; }
+.pcard { background: #151b2b; border: 1px solid #222a3d; border-radius: 14px; overflow: hidden; }
+.pcard:hover { border-color: #3b5bdb; }
+.pphoto { position: relative; aspect-ratio: 1 / 1; background: #2a3a6b; display: flex;
+          align-items: center; justify-content: center; font-size: 36px; font-weight: bold; }
+.pphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+              object-position: center 20%; }
+.pbody { padding: 12px 14px 14px; }
+.pname { font-size: 16px; font-weight: bold; }
+.pclass { font-size: 14px; color: #8d99b5; margin: 2px 0 8px; }
+.pstatus { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+
+.mini-news { display: block; color: inherit; text-decoration: none; margin-top: 12px; }
+.mini-news-img { aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden;
+                 background: linear-gradient(135deg, #1d2c5c, #2a3a6b); }
+.mini-news-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mini-news-title { font-weight: bold; margin: 10px 0 4px; }
+.mini-news-date { font-size: 13px; color: #8d99b5; }
+.mini-news:hover .mini-news-title { color: #6ea8ff; }
+
+.col-right .quiz { min-height: 200px; }
+.quote { text-align: center; padding: 28px 20px; background: transparent; border: 1px solid #222a3d; }
+.quote-text { font-size: 18px; }
+.quote-by { font-size: 13px; color: #8d99b5; margin-top: 8px; }
 
 /* ===== ТЕЛЕФОНЫ И ПЛАНШЕТЫ (всегда в самом конце файла) ===== */
 @media (max-width: 900px) {
